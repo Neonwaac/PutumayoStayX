@@ -1,21 +1,27 @@
 const Usuario = require('../models/usuario');
+const path = require('path');
 
 // Controlador para crear un nuevo usuario
 exports.crearUsuario = async (req, res) => {
-    const { username, contraseña, fecha } = req.body;
+    const { username, contraseña, correo, foto } = req.body;
 
-    if (!username || !contraseña || !fecha) {
+    if (!username || !contraseña || !correo) {
         return res.status(400).json({ message: 'Faltan campos requeridos.' });
     }
 
+    // Foto predeterminada si no se proporciona
+    const fotoPredeterminada = "./photos/users/default.png";
+    const fotoUsuario = foto || fotoPredeterminada;
+
     try {
-        const nuevoUsuario = { username, contraseña, fecha };
+        const nuevoUsuario = { username, contraseña, correo, foto: fotoUsuario };
         const usuarioCreado = await Usuario.crearUsuario(nuevoUsuario);
         res.status(201).json(usuarioCreado);
     } catch (error) {
         res.status(500).json({ message: 'Error al crear el usuario.', error: error.message });
     }
 };
+
 
 exports.obtenerUsuarios = async (req, res) =>{
     try{
@@ -52,6 +58,12 @@ exports.actualizarUsuario = async (req, res) => {
     const datosActualizados = req.body;
 
     try {
+        // Verificar si se subió una imagen
+        if (req.file) {
+            const imagenPath = path.join('/photos/users', req.file.filename); // Ruta de la imagen
+            datosActualizados.foto = imagenPath;
+        }
+
         const usuarioActualizado = await Usuario.actualizarUsuario(id, datosActualizados);
         res.status(200).json(usuarioActualizado);
     } catch (error) {

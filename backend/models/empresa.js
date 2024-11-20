@@ -11,6 +11,7 @@ class Empresa {
         this.estado = estado || 1; // Estado por defecto: activo
     }
 
+    // Crear una nueva empresa
     static async crearEmpresa(nuevaEmpresa) {
         const query = `
             INSERT INTO empresa (nombre, telefono, correo, descripcion, rol, estado)
@@ -25,24 +26,16 @@ class Empresa {
             nuevaEmpresa.estado || 1
         ];
 
-        try {
-            const [result] = await db.promise().execute(query, valores);
-            return { id: result.insertId, ...nuevaEmpresa };
-        } catch (error) {
-            throw new Error('Error al crear la empresa: ' + error.message);
-        }
+        return this.ejecutarQuery(query, valores, 'crear la empresa');
     }
 
+    // Obtener todas las empresas
     static async obtenerEmpresas() {
         const query = 'SELECT * FROM empresa';
-        try {
-            const [rows] = await db.promise().execute(query);
-            return rows;
-        } catch (error) {
-            throw new Error('Error al obtener empresas: ' + error.message);
-        }
+        return this.ejecutarQuery(query, [], 'obtener empresas');
     }
 
+    // Actualizar una empresa
     static async actualizarEmpresa(id, datos) {
         const query = `
             UPDATE empresa
@@ -58,21 +51,22 @@ class Empresa {
             id
         ];
 
-        try {
-            await db.promise().execute(query, valores);
-            return { id, ...datos };
-        } catch (error) {
-            throw new Error('Error al actualizar la empresa: ' + error.message);
-        }
+        return this.ejecutarQuery(query, valores, 'actualizar la empresa');
     }
 
+    // Eliminar una empresa
     static async eliminarEmpresa(id) {
         const query = 'DELETE FROM empresa WHERE id = ?';
+        return this.ejecutarQuery(query, [id], 'eliminar la empresa');
+    }
+
+    // Método genérico para ejecutar queries
+    static async ejecutarQuery(query, valores, accion) {
         try {
-            await db.promise().execute(query, [id]);
-            return { message: 'Empresa eliminada correctamente' };
+            const [result] = await db.promise().execute(query, valores);
+            return result;
         } catch (error) {
-            throw new Error('Error al eliminar la empresa: ' + error.message);
+            throw new Error(`Error al ${accion}: ${error.message}`);
         }
     }
 }

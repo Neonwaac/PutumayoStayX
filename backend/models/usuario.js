@@ -27,26 +27,32 @@ class Usuario {
 
     // Método para crear un nuevo usuario (simplificado)
     static async crearUsuario(nuevoUsuario) {
-        const { username, contraseña, fecha } = nuevoUsuario;
+        const { username, contraseña, correo, foto } = nuevoUsuario;
         const hashContraseña = await this.encriptarContraseña(contraseña);
-
+    
+        // Foto predeterminada si no se proporciona
+        const fotoPredeterminada = "./photos/users/default.png";
+        const fotoUsuario = foto || fotoPredeterminada;
+    
         const query = `
-            INSERT INTO usuarios (username, contraseña, fecha)
-            VALUES (?, ?, ?)
+            INSERT INTO usuarios (username, contraseña, correo, foto)
+            VALUES (?, ?, ?, ?)
         `;
         const valores = [
             username,
             hashContraseña,
-            fecha,
+            correo,
+            fotoUsuario,
         ];
-
+    
         try {
             const [result] = await db.promise().execute(query, valores);
-            return { id: result.insertId, username, fecha };
+            return { id: result.insertId, username, correo, foto: fotoUsuario };
         } catch (error) {
             throw new Error('Error al crear el usuario: ' + error.message);
         }
     }
+    
     static async obtenerUsuarios(){
         const query = 'SELECT * FROM usuarios'
         try {
@@ -69,7 +75,11 @@ class Usuario {
 
     // Método para actualizar un usuario
     static async actualizarUsuario(id, datosActualizados) {
-        const query = "UPDATE usuarios SET username = ?, fecha = ?, rol = ?, estado = ?, foto = ?, token = ? WHERE id = ?";
+        const query = `
+            UPDATE usuarios 
+            SET username = ?, fecha = ?, rol = ?, estado = ?, foto = ?, token = ? 
+            WHERE id = ?
+        `;
         const valores = [
             datosActualizados.username,
             datosActualizados.fecha,
@@ -79,7 +89,7 @@ class Usuario {
             datosActualizados.token,
             id,
         ];
-
+    
         try {
             await db.promise().execute(query, valores);
             return { id, ...datosActualizados };
@@ -87,6 +97,7 @@ class Usuario {
             throw new Error('Error al actualizar el usuario: ' + error.message);
         }
     }
+    
 
     // Método para eliminar un usuario
     static async eliminarUsuario(id) {

@@ -6,43 +6,27 @@ class Categoria {
         this.nombre = nombre;
     }
 
+    static manejarError(mensaje, error) {
+        throw new Error(`${mensaje}: ${error.message}`);
+    }
+
     static async obtenerCategorias() {
         const query = 'SELECT * FROM categorias';
         try {
             const [rows] = await db.promise().execute(query);
             return rows;
         } catch (error) {
-            throw new Error('Error al obtener las categorías: ' + error.message);
+            this.manejarError('Error al obtener las categorías', error);
         }
     }
 
-    static async crearCategoria(nombre) {
-        const query = 'INSERT INTO categorias (nombre) VALUES (?)';
+    static async obtenerCategoriaPorId(id) {
+        const query = 'SELECT * FROM categorias WHERE id = ?';
         try {
-            const [result] = await db.promise().execute(query, [nombre]);
-            return { id: result.insertId, nombre };
+            const [rows] = await db.promise().execute(query, [id]);
+            return rows[0]; // Retorna solo la primera coincidencia
         } catch (error) {
-            throw new Error('Error al crear la categoría: ' + error.message);
-        }
-    }
-
-    static async actualizarCategoria(id, nombre) {
-        const query = 'UPDATE categorias SET nombre = ? WHERE id = ?';
-        try {
-            await db.promise().execute(query, [nombre, id]);
-            return { id, nombre };
-        } catch (error) {
-            throw new Error('Error al actualizar la categoría: ' + error.message);
-        }
-    }
-
-    static async eliminarCategoria(id) {
-        const query = 'DELETE FROM categorias WHERE id = ?';
-        try {
-            await db.promise().execute(query, [id]);
-            return { message: 'Categoría eliminada correctamente' };
-        } catch (error) {
-            throw new Error('Error al eliminar la categoría: ' + error.message);
+            this.manejarError('Error al obtener la categoría por ID', error);
         }
     }
 }

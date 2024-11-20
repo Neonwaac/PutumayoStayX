@@ -4,6 +4,8 @@ require('dotenv').config(); // Cargar variables de entorno
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const habitacionRoutes = require('./routes/habitacionRoutes');
 const reservaRoutes = require('./routes/reservaRoutes');
+const categoriaRoutes = require('./routes/categoriaRoutes');
+const empresaRoutes = require('./routes/empresaRoutes');
 const db = require('./db/db'); // Conexión a la base de datos
 
 const app = express();
@@ -26,6 +28,8 @@ db.connect((err) => {
 app.use('/api', usuarioRoutes);
 app.use('/api', habitacionRoutes);
 app.use('/api', reservaRoutes);
+app.use('/api', categoriaRoutes);
+app.use('/api', empresaRoutes);
 
 // Configuración del servidor
 const PORT = process.env.PORT;

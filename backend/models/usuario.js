@@ -21,10 +21,25 @@ class Usuario {
     }
 
     // Método para comparar contraseñas en el login
-    static async compararContraseña(contraseña, hash) {
-        return await bcrypt.compare(contraseña, hash);
-    }
-
+    static async iniciarSesion(username, contraseña) {
+        const query = 'SELECT * FROM usuarios WHERE username = ?';
+        try {
+          const [rows] = await db.promise().execute(query, [username]);
+          const usuario = rows[0];
+          if (!usuario) {
+            throw new Error('Usuario no encontrado.');
+          }
+          const contrasenaCorrecta = await bcrypt.compare(contraseña, usuario.contraseña);
+          if (contrasenaCorrecta) {
+            delete usuario.contraseña;
+            return usuario;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          throw new Error('Error al iniciar sesión: ' + error.message);
+        }
+      }   
     // Método para crear un nuevo usuario (simplificado)
     static async crearUsuario(nuevoUsuario) {
         const { username, contraseña, correo, foto } = nuevoUsuario;

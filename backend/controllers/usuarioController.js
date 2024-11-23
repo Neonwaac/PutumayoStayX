@@ -1,6 +1,24 @@
 const Usuario = require('../models/usuario');
 const path = require('path');
 
+exports.iniciarSesion = async (req, res) => {
+    const { username, password } = req.params;
+  
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Faltan campos requeridos.' });
+    }
+    try {
+      const usuario = await Usuario.iniciarSesion(username, password);
+  
+      if (usuario) {
+        res.status(200).json({ message: 'Inicio de sesión exitoso', usuario });
+      } else {
+        res.status(401).json({ message: 'Usuario no encontrado' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error al iniciar sesión.', error: error.message });
+    }
+  };
 // Controlador para crear un nuevo usuario
 exports.crearUsuario = async (req, res) => {
     const { username, contraseña, correo, foto } = req.body;

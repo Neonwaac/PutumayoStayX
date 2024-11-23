@@ -1,8 +1,10 @@
 const db = require('../db/db');
 
 class Habitacion {
-    constructor(id, capacidad, foto, estado, timestamp, precio, categoria) {
+    constructor(id, nombre, descripcion, capacidad, foto, estado, timestamp, precio, categoria) {
         this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.capacidad = capacidad;
         this.foto = foto || null;
         this.estado = estado || 1; // Estado activo por defecto
@@ -13,10 +15,12 @@ class Habitacion {
 
     static async crearHabitacion(nuevaHabitacion) {
         const query = `
-            INSERT INTO habitaciones (capacidad, foto, estado, timestamp, precio, categoria)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO habitaciones (nombre, descripcion,capacidad, foto, estado, timestamp, precio, categoria)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const valores = [
+            nuevaHabitacion.nombre,
+            nuevaHabitacion.descripcion,
             nuevaHabitacion.capacidad,
             nuevaHabitacion.foto || null,
             nuevaHabitacion.estado || 1,
@@ -50,10 +54,12 @@ class Habitacion {
     static async actualizarHabitacion(id, datos) {
         const query = `
             UPDATE habitaciones
-            SET capacidad = ?, foto = ?, estado = ?, precio = ?, categoria = ?
+            SET nombre = ?, descripcion = ?, capacidad = ?, foto = ?, estado = ?, precio = ?, categoria = ?
             WHERE id = ?
         `;
         const valores = [
+            datos. nombre,
+            datos.descripcion,
             datos.capacidad,
             datos.foto || null,
             datos.estado,

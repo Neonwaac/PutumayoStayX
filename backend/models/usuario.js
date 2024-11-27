@@ -1,5 +1,6 @@
 const db = require('../db/db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class Usuario {
     constructor(id, username, contraseña, fecha, rol, estado, foto, token, timestamp) {
@@ -23,23 +24,46 @@ class Usuario {
     // Método para comparar contraseñas en el login
     static async iniciarSesion(username, contraseña) {
         const query = 'SELECT * FROM usuarios WHERE username = ?';
+    
         try {
+          // Buscar usuario en la base de datos
           const [rows] = await db.promise().execute(query, [username]);
+    
+          if (rows.length === 0) {
+            const error = new Error('Usuario no encontrado.');
+            error.statusCode = 404;
+            throw error;
+          }
+    
           const usuario = rows[0];
-          if (!usuario) {
-            throw new Error('Usuario no encontrado.');
+    
+          // Validar la contraseña
+          const esValida = await bcrypt.compare(contraseña, usuario.contraseña);
+          if (!esValida) {
+            const error = new Error('Contraseña incorrecta.');
+            error.statusCode = 401;
+            throw error;
           }
-          const contrasenaCorrecta = await bcrypt.compare(contraseña, usuario.contraseña);
-          if (contrasenaCorrecta) {
-            delete usuario.contraseña;
-            return usuario;
-          } else {
-            return null;
-          }
+    
+          // Generar token JWT
+          const token = jwt.sign(
+            { id: usuario.id, username: usuario.username, role: usuario.rol },
+            process.env.JWT_SECRET || 'clave_secreta',
+            { expiresIn: '1h' }
+          );
+    
+          // Retornar usuario y token, omitiendo la contraseña
+          delete usuario.contraseña;
+    
+          return { usuario, token };
         } catch (error) {
-          throw new Error('Error al iniciar sesión: ' + error.message);
+          if (!error.statusCode) {
+            error.statusCode = 500; // Error interno del servidor si no se especifica otro
+          }
+          throw error;
         }
-      }   
+      }
+      
     // Método para crear un nuevo usuario (simplificado)
     static async crearUsuario(nuevoUsuario) {
         const { username, contraseña, correo, foto } = nuevoUsuario;

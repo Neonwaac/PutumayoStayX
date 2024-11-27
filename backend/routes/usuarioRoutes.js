@@ -5,7 +5,7 @@ const usuarioController = require('../controllers/usuarioController');
 // Ruta para obtener todos los usuarios
 router.get('/usuarios', usuarioController.obtenerUsuarios);
 
-router.get('/usuarios/:username/:password', usuarioController.iniciarSesion)
+router.post('/usuarios/login', usuarioController.iniciarSesion)
 // Ruta para crear un nuevo usuario
 router.post('/usuarios', usuarioController.crearUsuario);
 

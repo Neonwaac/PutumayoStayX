@@ -1,0 +1,93 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .modal-content h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    margin: 20px;
+    color: darkgreen;
+  }
+
+.modal-content input{
+  width: 100%;
+}
+  
+  .modal-content textarea {
+    width: 90%;
+    border: 2px solid rgba(0, 0, 0, 0.603);
+    min-width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    margin-bottom: 20px;
+    border-radius: 20px 20px 0px 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+.modal-actions {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.radio-star-rate{
+  width: 100%;
+  display: flex;
+}
+.radio-star-rate input{
+  width: 20%;
+  height: 60px;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 0;
+}
+.real-star-rate{
+  width: 100%;
+  font-size: 58px;
+  text-align: left;
+  margin-top: -70px;
+}
+.modal-input-title{
+  width: 100%;
+  font-size: 20px;
+  text-align: left;
+  margin: 20px 0px;
+}
+.modal-input-title-stars{
+  color: green
+}
+.modal-actions button{
+  width: 40%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+.modal-actions-enviar{
+  background: green;
+}
+.modal-actions-cancelar{
+  background: red;
+}

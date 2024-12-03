@@ -1,0 +1,18 @@
+.mis-reservas-container {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .mis-reservas-title {
+    font-size: 36px;
+    color: darkgreen;
+    margin-bottom: 20px;
+  }
+  
+  .mis-reservas-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  

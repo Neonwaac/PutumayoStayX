@@ -1,0 +1,77 @@
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.logo{
+    width: 300px;
+    padding: 20px;
+}
+.wrapper h1{
+    width: 100%;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.wrapper form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.wrapper input{
+    width: 70%;
+    margin: 0 auto;
+    height: 40px;
+    background: transparent;
+    padding: 0px 15px;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+.wrapper h3{
+    margin: 0 auto;
+    width: 70%;
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.wrapper input::placeholder{
+    color: rgb(96, 98, 98);
+}
+.input-box .icon{
+    position: absolute;
+    right: 90px;
+    top: 46.5%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+.wrapper button{
+    margin: 0 auto;
+    width: 70%;
+    height: 40px;
+    background: green;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 10px;
+    transition-duration: 0.2s;
+}
+.wrapper button:hover{
+    background: yellowgreen;
+    transition-duration: 0.2s;
+}
+.wrapper p{
+    font-size: 16px;
+    margin: 30px 0px;
+    text-align: center;
+    width: 100%;
+}

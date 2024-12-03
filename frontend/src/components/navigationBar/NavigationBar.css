@@ -1,0 +1,46 @@
+.nav-container{
+    background: green;
+    width: 100%;
+    height: 12vh;
+    display: flex;
+    z-index: 25;
+    box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.2);
+}
+.nav-title{
+    font-family: "Playwrite GB S", serif;
+    width: 100%;
+    font-size: 30px;
+}
+.nav-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+.nav-logo{
+    height: 80%;
+}
+.nav-right{
+    width: 60%;
+    display: flex;   
+    align-items: center;
+    justify-content: right;
+    gap: 40px;
+}
+.nav-link-container{
+    width: auto;
+    display: flex;  
+    align-items: center;
+    justify-content: left;
+}
+.nav-link{
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+.nav-link:hover{
+    color: yellowgreen;
+    transition-duration: 0.1s;
+}

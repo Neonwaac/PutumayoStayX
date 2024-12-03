@@ -1,0 +1,55 @@
+.footer-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: green;
+}
+
+.footer-left{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer-right{
+    width: 50%;
+    display: flex;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+    align-items: center;
+}
+.footer-right-career{
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.footer-right-social{
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.footer-logo{
+    height: 50%;
+}
+.youtube-icon{
+    color: red;
+}
+.instagram-icon{
+    background: -webkit-linear-gradient(#8c00ff, #ff01ff, yellow);
+    -webkit-text-fill-color: transparent;
+}
+.footer-creators{
+    width: 100%;
+    font-size: 18px;
+    color: white;
+    background: #202020;
+}
+.footer-item{
+    width: 100%;
+    text-align: left;
+}

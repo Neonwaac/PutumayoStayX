@@ -1,0 +1,47 @@
+.reserva-card {
+    width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 15px auto;
+    padding: 15px;
+    background-color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reserva-card-header {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .reserva-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .reserva-card-body {
+    padding: 10px 0;
+  }
+  
+  .reserva-card-info {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  .reserva-card-estado {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .reserva-card-estado.activo {
+    color: green;
+  }
+  
+  .reserva-card-estado.inactivo {
+    color: red;
+  }
+  
